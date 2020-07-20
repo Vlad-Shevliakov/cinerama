@@ -1,0 +1,21 @@
+syntax = "proto3";
+option go_package=".;proto";
+package pb;
+
+import "google/api/annotations.proto";
+
+service APIGatewayService {
+    rpc HandShake (PingRequest) returns (PongResponse) {
+        option(google.api.http) = {
+            get: "/api/hello",
+        };
+    }
+}
+
+message PingRequest {
+    string name = 1;
+}
+
+message PongResponse {
+    string message = 1;
+}
