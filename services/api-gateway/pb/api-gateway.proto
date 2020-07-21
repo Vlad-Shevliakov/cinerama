@@ -7,7 +7,7 @@ import "google/api/annotations.proto";
 service APIGatewayService {
     rpc HandShake (PingRequest) returns (PongResponse) {
         option(google.api.http) = {
-            get: "/api/hello",
+            get: "/api/hello/{name}",
         };
     }
 }
@@ -19,3 +19,20 @@ message PingRequest {
 message PongResponse {
     string message = 1;
 }
+
+
+service AuthService {
+    rpc SignUp (SignUpRequest) returns (SignUpResponse) {
+        option(google.api.http) = {
+            post: "/api/signup",
+        };
+    };
+}
+
+message SignUpRequest {
+    string name = 1;
+    string password = 2;
+    bool isCreator = 3;
+}
+
+message SignUpResponse {}

@@ -124,6 +124,107 @@ func (x *PongResponse) GetMessage() string {
 	return ""
 }
 
+type SignUpRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Name      string `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	Password  string `protobuf:"bytes,2,opt,name=password,proto3" json:"password,omitempty"`
+	IsCreator bool   `protobuf:"varint,3,opt,name=isCreator,proto3" json:"isCreator,omitempty"`
+}
+
+func (x *SignUpRequest) Reset() {
+	*x = SignUpRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_api_gateway_proto_msgTypes[2]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SignUpRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SignUpRequest) ProtoMessage() {}
+
+func (x *SignUpRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_api_gateway_proto_msgTypes[2]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SignUpRequest.ProtoReflect.Descriptor instead.
+func (*SignUpRequest) Descriptor() ([]byte, []int) {
+	return file_api_gateway_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *SignUpRequest) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *SignUpRequest) GetPassword() string {
+	if x != nil {
+		return x.Password
+	}
+	return ""
+}
+
+func (x *SignUpRequest) GetIsCreator() bool {
+	if x != nil {
+		return x.IsCreator
+	}
+	return false
+}
+
+type SignUpResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *SignUpResponse) Reset() {
+	*x = SignUpResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_api_gateway_proto_msgTypes[3]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SignUpResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SignUpResponse) ProtoMessage() {}
+
+func (x *SignUpResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_api_gateway_proto_msgTypes[3]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SignUpResponse.ProtoReflect.Descriptor instead.
+func (*SignUpResponse) Descriptor() ([]byte, []int) {
+	return file_api_gateway_proto_rawDescGZIP(), []int{3}
+}
+
 var File_api_gateway_proto protoreflect.FileDescriptor
 
 var file_api_gateway_proto_rawDesc = []byte{
@@ -135,13 +236,26 @@ var file_api_gateway_proto_rawDesc = []byte{
 	0x28, 0x09, 0x52, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x22, 0x28, 0x0a, 0x0c, 0x50, 0x6f, 0x6e, 0x67,
 	0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x18, 0x0a, 0x07, 0x6d, 0x65, 0x73, 0x73,
 	0x61, 0x67, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x6d, 0x65, 0x73, 0x73, 0x61,
-	0x67, 0x65, 0x32, 0x57, 0x0a, 0x11, 0x41, 0x50, 0x49, 0x47, 0x61, 0x74, 0x65, 0x77, 0x61, 0x79,
-	0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x12, 0x42, 0x0a, 0x09, 0x48, 0x61, 0x6e, 0x64, 0x53,
-	0x68, 0x61, 0x6b, 0x65, 0x12, 0x0f, 0x2e, 0x70, 0x62, 0x2e, 0x50, 0x69, 0x6e, 0x67, 0x52, 0x65,
-	0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x10, 0x2e, 0x70, 0x62, 0x2e, 0x50, 0x6f, 0x6e, 0x67, 0x52,
-	0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x12, 0x82, 0xd3, 0xe4, 0x93, 0x02, 0x0c, 0x12,
-	0x0a, 0x2f, 0x61, 0x70, 0x69, 0x2f, 0x68, 0x65, 0x6c, 0x6c, 0x6f, 0x42, 0x09, 0x5a, 0x07, 0x2e,
-	0x3b, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x67, 0x65, 0x22, 0x5d, 0x0a, 0x0d, 0x53, 0x69, 0x67, 0x6e, 0x55, 0x70, 0x52, 0x65, 0x71, 0x75,
+	0x65, 0x73, 0x74, 0x12, 0x12, 0x0a, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28,
+	0x09, 0x52, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x12, 0x1a, 0x0a, 0x08, 0x70, 0x61, 0x73, 0x73, 0x77,
+	0x6f, 0x72, 0x64, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x70, 0x61, 0x73, 0x73, 0x77,
+	0x6f, 0x72, 0x64, 0x12, 0x1c, 0x0a, 0x09, 0x69, 0x73, 0x43, 0x72, 0x65, 0x61, 0x74, 0x6f, 0x72,
+	0x18, 0x03, 0x20, 0x01, 0x28, 0x08, 0x52, 0x09, 0x69, 0x73, 0x43, 0x72, 0x65, 0x61, 0x74, 0x6f,
+	0x72, 0x22, 0x10, 0x0a, 0x0e, 0x53, 0x69, 0x67, 0x6e, 0x55, 0x70, 0x52, 0x65, 0x73, 0x70, 0x6f,
+	0x6e, 0x73, 0x65, 0x32, 0x5e, 0x0a, 0x11, 0x41, 0x50, 0x49, 0x47, 0x61, 0x74, 0x65, 0x77, 0x61,
+	0x79, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x12, 0x49, 0x0a, 0x09, 0x48, 0x61, 0x6e, 0x64,
+	0x53, 0x68, 0x61, 0x6b, 0x65, 0x12, 0x0f, 0x2e, 0x70, 0x62, 0x2e, 0x50, 0x69, 0x6e, 0x67, 0x52,
+	0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x10, 0x2e, 0x70, 0x62, 0x2e, 0x50, 0x6f, 0x6e, 0x67,
+	0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x19, 0x82, 0xd3, 0xe4, 0x93, 0x02, 0x13,
+	0x12, 0x11, 0x2f, 0x61, 0x70, 0x69, 0x2f, 0x68, 0x65, 0x6c, 0x6c, 0x6f, 0x2f, 0x7b, 0x6e, 0x61,
+	0x6d, 0x65, 0x7d, 0x32, 0x53, 0x0a, 0x0b, 0x41, 0x75, 0x74, 0x68, 0x53, 0x65, 0x72, 0x76, 0x69,
+	0x63, 0x65, 0x12, 0x44, 0x0a, 0x06, 0x53, 0x69, 0x67, 0x6e, 0x55, 0x70, 0x12, 0x11, 0x2e, 0x70,
+	0x62, 0x2e, 0x53, 0x69, 0x67, 0x6e, 0x55, 0x70, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a,
+	0x12, 0x2e, 0x70, 0x62, 0x2e, 0x53, 0x69, 0x67, 0x6e, 0x55, 0x70, 0x52, 0x65, 0x73, 0x70, 0x6f,
+	0x6e, 0x73, 0x65, 0x22, 0x13, 0x82, 0xd3, 0xe4, 0x93, 0x02, 0x0d, 0x22, 0x0b, 0x2f, 0x61, 0x70,
+	0x69, 0x2f, 0x73, 0x69, 0x67, 0x6e, 0x75, 0x70, 0x42, 0x09, 0x5a, 0x07, 0x2e, 0x3b, 0x70, 0x72,
+	0x6f, 0x74, 0x6f, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -156,16 +270,20 @@ func file_api_gateway_proto_rawDescGZIP() []byte {
 	return file_api_gateway_proto_rawDescData
 }
 
-var file_api_gateway_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
+var file_api_gateway_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
 var file_api_gateway_proto_goTypes = []interface{}{
-	(*PingRequest)(nil),  // 0: pb.PingRequest
-	(*PongResponse)(nil), // 1: pb.PongResponse
+	(*PingRequest)(nil),    // 0: pb.PingRequest
+	(*PongResponse)(nil),   // 1: pb.PongResponse
+	(*SignUpRequest)(nil),  // 2: pb.SignUpRequest
+	(*SignUpResponse)(nil), // 3: pb.SignUpResponse
 }
 var file_api_gateway_proto_depIdxs = []int32{
 	0, // 0: pb.APIGatewayService.HandShake:input_type -> pb.PingRequest
-	1, // 1: pb.APIGatewayService.HandShake:output_type -> pb.PongResponse
-	1, // [1:2] is the sub-list for method output_type
-	0, // [0:1] is the sub-list for method input_type
+	2, // 1: pb.AuthService.SignUp:input_type -> pb.SignUpRequest
+	1, // 2: pb.APIGatewayService.HandShake:output_type -> pb.PongResponse
+	3, // 3: pb.AuthService.SignUp:output_type -> pb.SignUpResponse
+	2, // [2:4] is the sub-list for method output_type
+	0, // [0:2] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name
 	0, // [0:0] is the sub-list for extension extendee
 	0, // [0:0] is the sub-list for field type_name
@@ -201,6 +319,30 @@ func file_api_gateway_proto_init() {
 				return nil
 			}
 		}
+		file_api_gateway_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*SignUpRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_api_gateway_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*SignUpResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
@@ -208,9 +350,9 @@ func file_api_gateway_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_api_gateway_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   2,
+			NumMessages:   4,
 			NumExtensions: 0,
-			NumServices:   1,
+			NumServices:   2,
 		},
 		GoTypes:           file_api_gateway_proto_goTypes,
 		DependencyIndexes: file_api_gateway_proto_depIdxs,
@@ -296,6 +438,78 @@ var _APIGatewayService_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "HandShake",
 			Handler:    _APIGatewayService_HandShake_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "api-gateway.proto",
+}
+
+// AuthServiceClient is the client API for AuthService service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
+type AuthServiceClient interface {
+	SignUp(ctx context.Context, in *SignUpRequest, opts ...grpc.CallOption) (*SignUpResponse, error)
+}
+
+type authServiceClient struct {
+	cc grpc.ClientConnInterface
+}
+
+func NewAuthServiceClient(cc grpc.ClientConnInterface) AuthServiceClient {
+	return &authServiceClient{cc}
+}
+
+func (c *authServiceClient) SignUp(ctx context.Context, in *SignUpRequest, opts ...grpc.CallOption) (*SignUpResponse, error) {
+	out := new(SignUpResponse)
+	err := c.cc.Invoke(ctx, "/pb.AuthService/SignUp", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// AuthServiceServer is the server API for AuthService service.
+type AuthServiceServer interface {
+	SignUp(context.Context, *SignUpRequest) (*SignUpResponse, error)
+}
+
+// UnimplementedAuthServiceServer can be embedded to have forward compatible implementations.
+type UnimplementedAuthServiceServer struct {
+}
+
+func (*UnimplementedAuthServiceServer) SignUp(context.Context, *SignUpRequest) (*SignUpResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SignUp not implemented")
+}
+
+func RegisterAuthServiceServer(s *grpc.Server, srv AuthServiceServer) {
+	s.RegisterService(&_AuthService_serviceDesc, srv)
+}
+
+func _AuthService_SignUp_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SignUpRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AuthServiceServer).SignUp(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/pb.AuthService/SignUp",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AuthServiceServer).SignUp(ctx, req.(*SignUpRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+var _AuthService_serviceDesc = grpc.ServiceDesc{
+	ServiceName: "pb.AuthService",
+	HandlerType: (*AuthServiceServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "SignUp",
+			Handler:    _AuthService_SignUp_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
