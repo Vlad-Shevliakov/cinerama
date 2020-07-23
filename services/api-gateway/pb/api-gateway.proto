@@ -20,19 +20,3 @@ message PongResponse {
     string message = 1;
 }
 
-
-service AuthService {
-    rpc SignUp (SignUpRequest) returns (SignUpResponse) {
-        option(google.api.http) = {
-            post: "/api/signup",
-        };
-    };
-}
-
-message SignUpRequest {
-    string name = 1;
-    string password = 2;
-    bool isCreator = 3;
-}
-
-message SignUpResponse {}
