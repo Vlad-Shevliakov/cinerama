@@ -36,6 +36,7 @@ const useStyles = makeStyles(() => ({
     color: '#fff',
     textTransform: 'uppercase',
     transition: 'all .2s',
+    userSelect: 'none',
     '&:hover': {
       textDecoration: 'none',
       color: '#d8d8d8'
@@ -47,6 +48,7 @@ const useStyles = makeStyles(() => ({
   },
   logo: {
     display: 'block',
+    userSelect: 'none',
     maxWidth: 73,
     minWidth: 73,
     '& img': {

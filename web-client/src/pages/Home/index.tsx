@@ -1,5 +1,8 @@
 import React from 'react'
-import { makeStyles, Typography } from '@material-ui/core'
+import clsx from 'clsx'
+import { makeStyles } from '@material-ui/core'
+import Typography from '@material-ui/core/Typography'
+import MovieTag from '../../shared/MovieTag/MovieTag'
 import AppLayout from '../../components/AppLayout/AppLayout'
 import hobbitImage from '../../assets/rastr/the_hobbit_home.jpg'
 
@@ -28,9 +31,24 @@ const useStyles = makeStyles(() => ({
     padding: '30px 10px 20px 25px'
   },
   title: {
-    fontWeight: 500,
+    color: '#fff',
     fontSize: 25,
-    color: '#fff'
+    fontWeight: 500,
+    lineHeight: '30px'
+  },
+  subInfo: {
+    color: '#fff',
+    fontSize: 18,
+    fontWeight: 500
+  },
+  genre: {
+    marginTop: '7px'
+  },
+  year: {
+    marginBottom: '5px'
+  },
+  tagBox: {
+    marginTop: '5px'
   }
 }))
 
@@ -43,6 +61,17 @@ const Home: React.FC<HomeProps> = () => {
         <div className={classes.captionBox}>
           <Typography className={classes.title} component="h1">
             The Hobbit: The Desolation of Smaug
+          </Typography>
+          <div className={classes.tagBox}>
+            <MovieTag status={2} />
+          </div>
+          <Typography className={clsx(classes.subInfo, classes.genre)} component="p">
+            Genre:&nbsp;
+            <Typography component="span">Fantasy, Action</Typography>
+          </Typography>
+          <Typography className={clsx(classes.subInfo, classes.year)} component="p">
+            Year:&nbsp;
+            <Typography component="span">2013</Typography>
           </Typography>
         </div>
       </div>
