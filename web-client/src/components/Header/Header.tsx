@@ -1,37 +1,117 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core'
+import { red } from '@material-ui/core/colors'
+import List from '@material-ui/core/List'
+import ListItem from '@material-ui/core/ListItem'
+import Typography from '@material-ui/core/Typography'
+import EmojiPeopleIcon from '@material-ui/icons/EmojiPeople'
+import Link from '@material-ui/core/Link'
+import { Link as RouterLink } from 'react-router-dom'
+import logoImage from '../../assets/rastr/logo.png'
 
-type route = {
-  path: string
-  text: string
-}
-
-interface HeaderProps {
-  routes: route[]
-}
+interface HeaderProps {}
 
 const useStyles = makeStyles(() => ({
   root: {
-    backgroundColor: 'limegreen'
+    position: 'fixed',
+    display: 'flex',
+    zIndex: 10,
+    width: '100%',
+    backdropFilter: 'blur(5px)',
+    boxShadow: 'inset 0 0 0 200px rgba(255,255,255,0.15)'
+  },
+  container: {
+    width: '100%',
+    maxWidth: 400,
+    margin: '0 auto'
+  },
+  list: {
+    display: 'flex',
+    '& > li': {
+      display: 'flex',
+      justifyContent: 'center'
+    }
+  },
+  link: {
+    color: '#fff',
+    textTransform: 'uppercase',
+    transition: 'all .2s',
+    '&:hover': {
+      textDecoration: 'none',
+      color: '#d8d8d8'
+    },
+    '& > span': {
+      fontSize: 15,
+      fontWeight: 500
+    }
+  },
+  logo: {
+    display: 'block',
+    maxWidth: 73,
+    minWidth: 73,
+    '& img': {
+      display: 'block',
+      maxWidth: '100%',
+      maxHeight: '100%'
+    }
+  },
+  auth: {
+    position: 'absolute',
+    right: 50,
+    display: 'flex',
+    color: '#fff',
+    backgroundColor: red[600],
+    borderBottomLeftRadius: 4,
+    borderBottomRightRadius: 4,
+    padding: '6px 9px 6px 6px',
+    transition: 'all .3s',
+    '& > span': {
+      fontSize: 15,
+      fontWeight: 500,
+      marginLeft: 5
+    },
+    '&:hover': {
+      backgroundColor: '#fff',
+      color: red[600]
+    }
   }
 }))
 
-const Header: React.FC<HeaderProps> = ({ routes, children }) => {
+const Header: React.FC<HeaderProps> = () => {
   const classes = useStyles()
 
   return (
     <>
       <header className={classes.root}>
-        {children}
-        <nav>
-          <ul>
-            {routes.map((route, index) => (
-              <li key={index}>
-                <span>{route.text}</span>
-              </li>
-            ))}
-          </ul>
-        </nav>
+        <div className={classes.container}>
+          <nav>
+            <List disablePadding className={classes.list}>
+              <ListItem>
+                <Link component={RouterLink} className={classes.link} to="/premieres">
+                  <Typography component="span">Premieres</Typography>
+                </Link>
+              </ListItem>
+              <ListItem>
+                <Link component={RouterLink} className={classes.logo} to="/">
+                  <img src={logoImage} alt="Cinerama logo" />
+                </Link>
+              </ListItem>
+              <ListItem>
+                <Link component={RouterLink} className={classes.link} to="/events">
+                  <Typography component="span">Events</Typography>
+                </Link>
+              </ListItem>
+            </List>
+          </nav>
+        </div>
+        <div>
+          <Link component={RouterLink} className={classes.link} to="/login">
+            <div className={classes.auth}>
+              <EmojiPeopleIcon />
+              <Typography component="span">log in</Typography>
+            </div>
+          </Link>
+        </div>
       </header>
     </>
   )
