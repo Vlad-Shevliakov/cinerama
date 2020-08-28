@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/core'
 import Typography from '@material-ui/core/Typography'
 import MovieTag from '../../shared/MovieTag/MovieTag'
 import AppLayout from '../../components/AppLayout/AppLayout'
+import SelectedMovies from './SelectedMovies/SelectedMovies'
 import hobbitImage from '../../assets/rastr/the_hobbit_home.jpg'
 
 interface HomeProps {}
@@ -75,6 +76,7 @@ const Home: React.FC<HomeProps> = () => {
           </Typography>
         </div>
       </div>
+      <SelectedMovies />
     </AppLayout>
   )
 }
