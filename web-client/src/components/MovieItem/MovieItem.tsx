@@ -17,7 +17,7 @@ interface MovieItemStyles {
 const useStyles = makeStyles(() => ({
   root: {
     position: 'relative',
-    margin: '10px',
+    // margin: '10px',
     width: 250,
     height: 400,
     overflow: 'hidden',
@@ -46,18 +46,26 @@ const useStyles = makeStyles(() => ({
   info: {
     position: 'absolute',
     zIndex: 110,
-    padding: '5px 10px',
+    padding: '2px 10px 15px 10px',
     bottom: 0,
     width: '100%',
     height: 60,
     '& > p': {
       color: '#fff',
-      fontWeight: 500
+      fontWeight: 500,
+      textOverflow: 'ellipsis',
+      whiteSpace: 'nowrap',
+      overflow: 'hidden'
     }
   },
   duration: {
     color: '#ffc107',
-    fontWeight: 500
+    fontWeight: 500,
+    display: 'flex',
+    alignItems: 'center',
+    '& > span': {
+      marginLeft: 5
+    }
   }
 }))
 

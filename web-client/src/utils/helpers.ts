@@ -30,10 +30,8 @@ export const tagByStatus = (status: number): tag => {
   }
 }
 
-export const minutesToFormattedString = (n: number): string => {
-  const hours = Math.floor(n / 60)
-  return `${hours}h ${n % 60}min`
-}
+// prettier-ignore
+export const minutesToFormattedString = (n: number): string => `${Math.floor(n / 60)}h ${n % 60}min`
 
 /*
     Action
