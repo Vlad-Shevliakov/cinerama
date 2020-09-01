@@ -6,7 +6,7 @@ import MovieItem from '../../../components/MovieItem/MovieItem'
 
 interface SelectedMoviesProps {}
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     padding: 1,
     backgroundImage: `url(${atlantisImage})`,
@@ -16,6 +16,9 @@ const useStyles = makeStyles(() => ({
   },
   container: {
     maxWidth: 1300,
+    [theme.breakpoints.up('lg')]: {
+      maxWidth: 1170
+    },
     margin: '0 auto',
     padding: '50px 0'
   },
@@ -23,8 +26,11 @@ const useStyles = makeStyles(() => ({
     margin: 0,
     padding: 0,
     '& > li': {
+      //   flexBasis: '20%',
+      //   maxWidth: '20%',
       display: 'flex',
-      justifyContent: 'center'
+      justifyContent: 'center',
+      marginBottom: 35
     }
   }
 }))
@@ -64,6 +70,20 @@ const tempList: Movie[] = [
       'https://res.cloudinary.com/dct4oinuz/image/upload/v1598614119/cine/movies/big_lebowski.jpg',
     title: 'The Big Lebowski',
     duration: 182
+  },
+  {
+    id: '005',
+    url:
+      'https://res.cloudinary.com/dct4oinuz/image/upload/v1598614119/cine/movies/big_lebowski.jpg',
+    title: 'The Big Lebowski',
+    duration: 189
+  },
+  {
+    id: '006',
+    url:
+      'https://res.cloudinary.com/dct4oinuz/image/upload/v1598614119/cine/movies/big_lebowski.jpg',
+    title: 'The Big Lebowski',
+    duration: 178
   }
 ]
 
@@ -78,6 +98,7 @@ const SelectedMovies: React.FC<SelectedMoviesProps> = () => {
             <Grid key={movie.id} component="li" item xs={3}>
               <MovieItem
                 key={movie.id}
+                id={movie.id}
                 title={movie.title}
                 urlImg={movie.url}
                 duration={movie.duration}

@@ -15,7 +15,7 @@ const useStyles = makeStyles(() => ({
   root: {
     position: 'fixed',
     display: 'flex',
-    zIndex: 10,
+    zIndex: 900,
     width: '100%',
     backdropFilter: 'blur(5px)',
     boxShadow: 'inset 0 0 0 200px rgba(255,255,255,0.15)'
@@ -61,6 +61,7 @@ const useStyles = makeStyles(() => ({
     position: 'absolute',
     right: 50,
     display: 'flex',
+    alignItems: 'center',
     color: '#fff',
     backgroundColor: red[600],
     borderBottomLeftRadius: 4,
@@ -89,7 +90,11 @@ const Header: React.FC<HeaderProps> = () => {
           <nav>
             <List disablePadding className={classes.list}>
               <ListItem>
-                <Link component={RouterLink} className={classes.link} to="/premieres">
+                <Link
+                  component={RouterLink}
+                  className={classes.link}
+                  to="/premieres"
+                >
                   <Typography component="span">Premieres</Typography>
                 </Link>
               </ListItem>
@@ -99,7 +104,11 @@ const Header: React.FC<HeaderProps> = () => {
                 </Link>
               </ListItem>
               <ListItem>
-                <Link component={RouterLink} className={classes.link} to="/events">
+                <Link
+                  component={RouterLink}
+                  className={classes.link}
+                  to="/events"
+                >
                   <Typography component="span">Events</Typography>
                 </Link>
               </ListItem>

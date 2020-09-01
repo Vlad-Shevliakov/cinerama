@@ -1,10 +1,14 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
+import { red } from '@material-ui/core/colors'
 import { makeStyles } from '@material-ui/core'
 import Typography from '@material-ui/core/Typography'
+import ArrowRightIcon from '@material-ui/icons/ArrowRight'
 import AccessTimeIcon from '@material-ui/icons/AccessTime'
 import { minutesToFormattedString } from '../../utils/helpers'
 
 interface MovieItemProps {
+  id: string
   title: string
   urlImg: string
   duration: number
@@ -17,7 +21,7 @@ interface MovieItemStyles {
 const useStyles = makeStyles(() => ({
   root: {
     position: 'relative',
-    // margin: '10px',
+    borderRadius: 5,
     width: 250,
     height: 400,
     overflow: 'hidden',
@@ -29,6 +33,14 @@ const useStyles = makeStyles(() => ({
       height: 110,
       bottom: 0,
       background: 'linear-gradient(to bottom, transparent 0%, black 100%)'
+    },
+    '&:hover': {
+      '& > $overlay': {
+        opacity: 1
+      },
+      '& $container': {
+        transform: 'scale(1.2)'
+      }
     }
   },
   container: {
@@ -38,10 +50,7 @@ const useStyles = makeStyles(() => ({
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center',
-    transition: 'all .5s cubic-bezier(0.000, 0.000, 0.580, 1.000)',
-    '&:hover': {
-      transform: 'scale(1.2)'
-    }
+    transition: 'all .5s cubic-bezier(0.000, 0.000, 0.580, 1.000)'
   },
   info: {
     position: 'absolute',
@@ -66,10 +75,47 @@ const useStyles = makeStyles(() => ({
     '& > span': {
       marginLeft: 5
     }
+  },
+  overlay: {
+    display: 'flex',
+    opacity: 0,
+    zIndex: 120,
+    position: 'absolute',
+    background: 'rgba(0,0,0,0.4)',
+    bottom: 0,
+    top: 0,
+    left: 0,
+    right: 0,
+    justifyContent: 'center',
+    alignItems: 'center',
+    transition: 'all .5s cubic-bezier(0.000, 0.000, 0.580, 1.000)',
+    '& > a': {
+      textDecoration: 'none'
+    }
+  },
+  more: {
+    display: 'flex',
+    alignItems: 'center',
+    textTransform: 'uppercase',
+    transition: 'all .5s cubic-bezier(0.000, 0.000, 0.580, 1.000)',
+    backgroundColor: red[600],
+    borderRadius: 5,
+    color: '#fff',
+    padding: '6px 5px 6px 14px',
+    '& > span': {
+      fontSize: 15,
+      fontWeight: 500,
+      textOverflow: 'ellipsis'
+    }
   }
 }))
 
-const MovieItem: React.FC<MovieItemProps> = ({ title, urlImg, duration }) => {
+const MovieItem: React.FC<MovieItemProps> = ({
+  id,
+  title,
+  urlImg,
+  duration
+}) => {
   const classes = useStyles({ urlImg })
 
   const formattedDuration = minutesToFormattedString(duration)
@@ -83,6 +129,14 @@ const MovieItem: React.FC<MovieItemProps> = ({ title, urlImg, duration }) => {
           <AccessTimeIcon />
           <Typography component="span">{formattedDuration}</Typography>
         </div>
+      </div>
+      <div className={classes.overlay}>
+        <Link to={id}>
+          <div className={classes.more}>
+            <Typography component="span">more</Typography>
+            <ArrowRightIcon />
+          </div>
+        </Link>
       </div>
     </div>
   )
