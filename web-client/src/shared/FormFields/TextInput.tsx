@@ -5,12 +5,10 @@ import TextField from '@material-ui/core/TextField'
 import Typography from '@material-ui/core/Typography'
 import Fade from '@material-ui/core/Fade'
 
-//  &:hover:not($disabled):not($cssFocused):not($error) $notchedOutline
-
 const useStyles = makeStyles(() => ({
   root: {
     color: '#343434',
-    '& .MuiOutlinedInput-input': {
+    '& .MuiInputBase-input': {
       fontWeight: '600',
       padding: '14px 10px'
     },
@@ -35,9 +33,10 @@ const useStyles = makeStyles(() => ({
 
 interface TextInputProps {
   onChange?(event: React.ChangeEvent<HTMLInputElement>): void
+  placeholder?: string
+  fullWidth?: boolean
   disabled?: boolean
   label?: string
-  placeholder?: string
   type?: string
   name: string
 }
@@ -57,11 +56,6 @@ const TextInput: React.FC<TextInputProps> = (props) => {
             root: classes.root
           }
         }}
-        InputLabelProps={
-          {
-            //   shrink: true
-          }
-        }
       />
       <Fade in={meta.touched && !!meta.error}>
         <Typography component="p" className={classes.message}>

@@ -116,7 +116,7 @@ const Header: React.FC<HeaderProps> = () => {
           </nav>
         </div>
         <div>
-          <Link component={RouterLink} className={classes.link} to="/login">
+          <Link className={classes.link} component={RouterLink} to="/auth">
             <div className={classes.auth}>
               <EmojiPeopleIcon />
               <Typography component="span">log in</Typography>
