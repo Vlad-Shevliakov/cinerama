@@ -8,6 +8,7 @@ import EmojiPeopleIcon from '@material-ui/icons/EmojiPeople'
 import Link from '@material-ui/core/Link'
 import { Link as RouterLink } from 'react-router-dom'
 import logoImage from '../../assets/rastr/logo.png'
+import routes from '../../services/routes'
 
 interface HeaderProps {}
 
@@ -95,11 +96,15 @@ const Header: React.FC<HeaderProps> = () => {
                   className={classes.link}
                   to="/premieres"
                 >
-                  <Typography component="span">Premieres</Typography>
+                  <Typography component="span">premieres</Typography>
                 </Link>
               </ListItem>
               <ListItem>
-                <Link component={RouterLink} className={classes.logo} to="/">
+                <Link
+                  component={RouterLink}
+                  className={classes.logo}
+                  to={routes.root}
+                >
                   <img src={logoImage} alt="Cinerama logo" />
                 </Link>
               </ListItem>
@@ -107,16 +112,20 @@ const Header: React.FC<HeaderProps> = () => {
                 <Link
                   component={RouterLink}
                   className={classes.link}
-                  to="/events"
+                  to={routes.events}
                 >
-                  <Typography component="span">Events</Typography>
+                  <Typography component="span">events</Typography>
                 </Link>
               </ListItem>
             </List>
           </nav>
         </div>
         <div>
-          <Link className={classes.link} component={RouterLink} to="/auth">
+          <Link
+            className={classes.link}
+            component={RouterLink}
+            to={routes.auth}
+          >
             <div className={classes.auth}>
               <EmojiPeopleIcon />
               <Typography component="span">log in</Typography>
