@@ -5,6 +5,7 @@ import { red } from '@material-ui/core/colors'
 import Button from '@material-ui/core/Button'
 import TextInput from '../../shared/FormFields/TextInput'
 import { logInSchema, LoginValuesTypes } from '../../services/validations'
+import { signUp } from '../../api/auth'
 
 interface FormProps {
   isLogin: boolean
@@ -34,8 +35,19 @@ const useStyles = makeStyles(() => ({
 const Form: React.FC<FormProps> = ({ isLogin }) => {
   const classes = useStyles()
 
+  const tempHelloRequest = async (email: string) => {
+    try {
+      const res = await signUp(email)
+
+      console.log(res)
+    } catch (error) {
+      console.dir(error)
+    }
+  }
+
   const handleSubmit = (values: LoginValuesTypes): void => {
     console.log('submit', values)
+    tempHelloRequest(values.email)
   }
 
   const initialValues: LoginValuesTypes = {
