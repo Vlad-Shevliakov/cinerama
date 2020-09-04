@@ -34,8 +34,8 @@ const useStyles = makeStyles(() => ({
 const Form: React.FC<FormProps> = ({ isLogin }) => {
   const classes = useStyles()
 
-  const handleSubmit = (): void => {
-    console.log('submit')
+  const handleSubmit = (values: LoginValuesTypes): void => {
+    console.log('submit', values)
   }
 
   const initialValues: LoginValuesTypes = {
