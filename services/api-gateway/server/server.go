@@ -1,91 +1,126 @@
 package server
 
 import (
-	"context"
 	"fmt"
-	proto "github.com/cinerama/services/api-gateway/pb"
-	"github.com/grpc-ecosystem/grpc-gateway/runtime"
-	"google.golang.org/grpc"
+	"github.com/cinerama/services/api-gateway/broker"
 	"log"
-	"net"
-	"net/http"
+	"os"
 	"sync"
+
+	"github.com/streadway/amqp"
+
+	"github.com/cinerama/services/api-gateway/handlers"
+	"github.com/gin-gonic/gin"
+	"github.com/joho/godotenv"
 )
 
-type APIGatewayService struct{
-	wg sync.WaitGroup
+
+var AMQconn *amqp.Connection
+
+func init() {
+	if err := godotenv.Load(); err != nil {
+		log.Print("No .env file found")
+	}
 }
 
-func CreateNew() *APIGatewayService {
-	return &APIGatewayService{}
+type server struct {
+	wg            sync.WaitGroup
+	amqConnection *amqp.Connection
 }
 
-func (g *APIGatewayService) Run() {
-	g.wg.Add(1)
+func NewServer() *server {
+	return &server{}
+}
+
+func (s *server) Run() {
+	s.wg.Add(1)
 
 	go func() {
-		log.Fatal(g.runGRPC())
-		g.wg.Done()
+		//s.initAQMConnection()
+		broker.AMQBroker.InitConnection()
+		s.wg.Done()
 	}()
 
-	g.wg.Add(1)
+	s.wg.Add(1)
 
 	go func() {
-		log.Fatal(g.runREST())
-		g.wg.Done()
+		s.initREST()
+		s.wg.Done()
 	}()
 
-	g.wg.Wait()
+	s.wg.Wait()
+
+	defer func() {
+		s.Stop()
+	}()
 }
 
-func (g *APIGatewayService) runGRPC() error {
-	tcpListener, err := net.Listen("tcp", "localhost:8000")
-
-	if err != nil {
-		return  err
+func (s *server) Stop() {
+	if err := s.amqConnection.Close(); err != nil {
+		fmt.Println("fail to close amqp connection")
 	}
-
-	gServer := grpc.NewServer()
-
-	proto.RegisterAPIGatewayServiceServer(gServer, g)
-	gServer.Serve(tcpListener)
-
-	return nil
-
-
-
 }
 
-func (g *APIGatewayService) runREST() error {
-	ctx := context.Background()
+func (s *server) initREST() {
 
-	ctx, cancel := context.WithCancel(ctx)
+	gatewayAddress, _ := os.LookupEnv("API_GATEWAY_PORT")
+	ginMode, _ := os.LookupEnv("GIN_MODE")
 
-	defer cancel()
+	gin.SetMode(ginMode)
 
-	mux := runtime.NewServeMux()
+	r := gin.Default()
 
-	options := []grpc.DialOption{
-		grpc.WithInsecure(),
+	r.POST("/login", handlers.LogInHandler)
+
+	fmt.Println("running gin:8000...")
+
+	if err := r.Run(":" + gatewayAddress); err != nil {
+		fmt.Printf("cannot run server on port %v\n", gatewayAddress)
 	}
-
-	err := proto.RegisterAPIGatewayServiceHandlerFromEndpoint(ctx, mux, ":8000", options)
-
-	if err != nil {
-		return err
-	}
-
-	return http.ListenAndServe(":8080", mux)
-
 }
 
-
-func (g *APIGatewayService) HandShake(ctx context.Context, r *proto.PingRequest) (*proto.PongResponse, error) {
-
-
-	fmt.Println("call: HandShake")
-	return &proto.PongResponse{
-		Message: fmt.Sprintf("Hello: %v!", r.Name),
-	}, nil
-}
-
+//func (s *server) initAQMConnection() {
+//	conn, err := amqp.Dial("amqp://guest:guest@localhost:5672/")
+//	if err != nil {
+//		fmt.Println("cannot connect to RabbitMQ")
+//	}
+//
+//	ch, err := conn.Channel()
+//
+//	if err != nil {
+//		fmt.Println("cannot create RabbitMQ's channel")
+//	}
+//
+//	q, err := ch.QueueDeclare(
+//		"login", // name
+//		false,   // durable
+//		false,   // delete when unused
+//		false,   // exclusive
+//		false,   // no-wait
+//		nil,     // arguments
+//	)
+//
+//	if err != nil {
+//		fmt.Println("cannot declare RabbitMQ's queue")
+//	}
+//
+//	body := "Hello RabbitMQ from Golang!"
+//	err = ch.Publish(
+//		"",     // exchange
+//		q.Name, // routing key
+//		false,  // mandatory
+//		false,  // immediate
+//		amqp.Publishing{
+//			ContentType: "text/plain",
+//			Body:        []byte(body),
+//		})
+//
+//	if err != nil {
+//		fmt.Println("cannot send message")
+//	}
+//
+//	s.amqConnection = conn
+//
+//	fmt.Println("running amqp:5672...")
+//
+//}

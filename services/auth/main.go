@@ -1,54 +1,63 @@
 package main
 
 import (
-	"context"
 	"fmt"
-	proto "github.com/cinerama/services/auth/pb"
-	"github.com/joho/godotenv"
-	"google.golang.org/grpc"
+	"github.com/streadway/amqp"
 	"log"
-	"net"
-	"os"
 )
 
-
-func init() {
-	// loads values from .env into the system
-	if err := godotenv.Load(); err != nil {
-		log.Print("No .env file found")
-	}
-}
-
-
-type Server struct {}
-
-func (s *Server) SignUp(ctx context.Context, r *proto.SignUpRequest) (*proto.SignUpResponse, error) {
-
-	fmt.Println(r.Name)
-	fmt.Println("Call SignUp")
-
-	return &proto.SignUpResponse{}, nil
-
-}
-
 func main() {
-
-	authPort, _ := os.LookupEnv("AUTH_PORT")
-
-
-
-	lis, err := net.Listen("tcp", "localhost:" + authPort)
+	conn, err := amqp.Dial("amqp://guest:guest@localhost:5672/")
 
 	if err != nil {
-		fmt.Println("cannot connect to TCP port")
+		fmt.Println("Failed to connect to RabbitMQ")
 	}
 
+	defer conn.Close()
 
-	gServer := grpc.NewServer()
-	proto.RegisterAuthServiceServer(gServer, &Server{})
+	ch, err := conn.Channel()
 
+	if err != nil {
+		fmt.Println("Failed to open a channel")
+	}
 
-	gServer.Serve(lis)
+	defer ch.Close()
 
+	q, err := ch.QueueDeclare(
+		"login", // name
+		false,   // durable
+		false,   // delete when unused
+		false,   // exclusive
+		false,   // no-wait
+		nil,     // arguments
+	)
 
+	if err != nil {
+		fmt.Println("Failed to declare a queue")
+	}
+
+	msgs, err := ch.Consume(
+		q.Name, // queue
+		"",     // consumer
+		true,   // auto-ack
+		false,  // exclusive
+		false,  // no-local
+		false,  // no-wait
+		nil,    // args
+	)
+
+	if err != nil {
+		fmt.Println("Failed to register a consumer")
+	}
+
+	mqc := make(chan bool)
+
+	go func() {
+		for d := range msgs {
+			log.Printf("Received a message: %s", d.Body)
+		}
+	}()
+
+	log.Printf(" [*] Waiting for messages. To exit press CTRL+C")
+	<-mqc
 }
