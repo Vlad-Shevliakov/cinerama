@@ -1,5 +1,6 @@
 import api from './axiosClient'
+import { LoginValuesTypes } from '../services/validations'
 
-export const signUp = (email: string) => {
-  return api.get(`/hello/${email}`)
+export const signUp = (values: LoginValuesTypes) => {
+  return api.post(`/login`, values)
 }

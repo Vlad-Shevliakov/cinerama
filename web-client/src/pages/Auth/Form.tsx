@@ -35,9 +35,9 @@ const useStyles = makeStyles(() => ({
 const Form: React.FC<FormProps> = ({ isLogin }) => {
   const classes = useStyles()
 
-  const tempHelloRequest = async (email: string) => {
+  const tempHelloRequest = async (values: LoginValuesTypes) => {
     try {
-      const res = await signUp(email)
+      const res = await signUp(values)
 
       console.log(res)
     } catch (error) {
@@ -47,7 +47,7 @@ const Form: React.FC<FormProps> = ({ isLogin }) => {
 
   const handleSubmit = (values: LoginValuesTypes): void => {
     console.log('submit', values)
-    tempHelloRequest(values.email)
+    tempHelloRequest(values)
   }
 
   const initialValues: LoginValuesTypes = {
