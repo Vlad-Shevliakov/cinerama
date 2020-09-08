@@ -12,13 +12,17 @@ export type SignUpValuesTypes = {
   confirmPassword: string
 }
 
-export const logInSchema = {
+const authCommonFields = {
   email: yup.string().email('email').required('required'),
   password: yup.string().min(6, 'min 6').max(20, 'max 20').required('required')
 }
 
+export const logInSchema = yup.object({
+  ...authCommonFields
+})
+
 export const signUpSchema = yup.object({
-  ...logInSchema,
+  ...authCommonFields,
   name: yup.string().max(20, 'max 20').required('required'),
   confirmPassword: yup
     .string()

@@ -40,7 +40,9 @@ const useStyles = makeStyles(() => ({
 const Form: React.FC<FormProps> = ({ isLogin }) => {
   const classes = useStyles()
 
-  const tempHelloRequest = async (values: LoginValuesTypes) => {
+  const tempHelloRequest = async (
+    values: LoginValuesTypes | SignUpValuesTypes
+  ) => {
     try {
       const res = await signUp(values)
 
@@ -75,7 +77,7 @@ const Form: React.FC<FormProps> = ({ isLogin }) => {
       initialValues={isLogin ? logInInitialValues : signUpInitialValues}
       validationSchema={isLogin ? logInSchema : signUpSchema}
     >
-      {({ setFieldValue }) => (
+      {() => (
         <FormikForm>
           <TextInput fullWidth name="email" label="Email" type="email" />
           {!isLogin && (
