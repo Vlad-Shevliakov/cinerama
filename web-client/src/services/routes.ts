@@ -5,7 +5,8 @@ interface RoutesMap {
 const routes: RoutesMap = {
   root: '/',
   auth: '/auth',
-  events: '/events'
+  events: '/events',
+  panel: '/panel'
 }
 
 export default routes

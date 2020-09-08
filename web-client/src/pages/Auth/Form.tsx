@@ -4,7 +4,12 @@ import { makeStyles } from '@material-ui/core'
 import { red } from '@material-ui/core/colors'
 import Button from '@material-ui/core/Button'
 import TextInput from '../../shared/FormFields/TextInput'
-import { logInSchema, LoginValuesTypes } from '../../services/validations'
+import {
+  logInSchema,
+  signUpSchema,
+  LoginValuesTypes,
+  SignUpValuesTypes
+} from '../../services/validations'
 import { signUp } from '../../api/auth'
 
 interface FormProps {
@@ -45,31 +50,51 @@ const Form: React.FC<FormProps> = ({ isLogin }) => {
     }
   }
 
-  const handleSubmit = (values: LoginValuesTypes): void => {
+  const handleSubmit = (values: LoginValuesTypes | SignUpValuesTypes): void => {
     console.log('submit', values)
+
     tempHelloRequest(values)
   }
 
-  const initialValues: LoginValuesTypes = {
+  const signUpInitialValues: SignUpValuesTypes = {
+    email: '',
+    name: '',
+    password: '',
+    confirmPassword: ''
+  }
+
+  const logInInitialValues: LoginValuesTypes = {
     email: '',
     password: ''
   }
 
   return (
     <Formik
+      enableReinitialize
       onSubmit={handleSubmit}
-      initialValues={initialValues}
-      validationSchema={logInSchema}
+      initialValues={isLogin ? logInInitialValues : signUpInitialValues}
+      validationSchema={isLogin ? logInSchema : signUpSchema}
     >
       {({ setFieldValue }) => (
         <FormikForm>
           <TextInput fullWidth name="email" label="Email" type="email" />
+          {!isLogin && (
+            <TextInput fullWidth name="name" label="Name" type="text" />
+          )}
           <TextInput
             fullWidth
             name="password"
             label="Password"
             type="password"
           />
+          {!isLogin && (
+            <TextInput
+              fullWidth
+              name="confirmPassword"
+              label="Confirm Password"
+              type="password"
+            />
+          )}
           <div className={classes.buttonBox}>
             <Button className={classes.submitButton} type="submit">
               {isLogin ? 'Login' : 'Sign up'}
