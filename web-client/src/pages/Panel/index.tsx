@@ -6,10 +6,14 @@ interface PanelProps {}
 
 const Panel: React.FC<PanelProps> = () => {
   return (
-    <section>
-      <Profile userName="Mark Williamson" userEmail="example@gmail.com" />
+    <main>
+      <Profile
+        userName="Mark Williamson"
+        userEmail="example@gmail.com"
+        joined="10.09.2020"
+      />
       <Credit userBalance={200} />
-    </section>
+    </main>
   )
 }
 

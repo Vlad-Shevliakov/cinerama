@@ -94,7 +94,7 @@ const Header: React.FC<HeaderProps> = () => {
                 <Link
                   component={RouterLink}
                   className={classes.link}
-                  to="/premieres"
+                  to={routes.premieres}
                 >
                   <Typography component="span">premieres</Typography>
                 </Link>

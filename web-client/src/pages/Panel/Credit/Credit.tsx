@@ -35,7 +35,8 @@ const useStyles = makeStyles(() => ({
     alignItems: 'center',
     color: '#fff',
     fontWeight: 500,
-    fontSize: 27
+    fontSize: 27,
+    userSelect: 'none'
   }
 }))
 
@@ -43,14 +44,14 @@ const Credit: React.FC<CreditProps> = ({ userBalance }) => {
   const classes = useStyles()
 
   return (
-    <div className={classes.root}>
+    <section className={classes.root}>
       <Typography component="p" className={classes.title}>
         Available balance
       </Typography>
       <div className={classes.container}>
         <span>{userBalance}$</span>
       </div>
-    </div>
+    </section>
   )
 }
 

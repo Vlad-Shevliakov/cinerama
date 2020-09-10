@@ -6,6 +6,7 @@ const routes: RoutesMap = {
   root: '/',
   auth: '/auth',
   events: '/events',
+  premieres: '/premieres',
   panel: '/panel'
 }
 
