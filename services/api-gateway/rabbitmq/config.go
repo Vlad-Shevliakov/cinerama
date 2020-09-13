@@ -1,7 +1,9 @@
-package broker
+package rabbitmq
 
 import (
 	"time"
+
+	"github.com/streadway/amqp"
 )
 
 type Config struct {
@@ -19,10 +21,10 @@ type Config struct {
 	}
 }
 
-func New(config Config) *RabbitMQ {
+func NewConfig(config Config) *RabbitMQ {
 	return &RabbitMQ{
-		config: config,
-		// dialConfig:           amqp.Config{Properties: amqp.Table{"connection_name": config.ConnectionName}},
-		ChannelNotifyTimeout: config.ChannelNotifyTimeout,
+		config:            config,
+		dialConfig:        amqp.Config{Properties: amqp.Table{"connection_name": config.ConnectionName}},
+		ChanNotifyTimeout: config.ChannelNotifyTimeout,
 	}
 }

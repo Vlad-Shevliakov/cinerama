@@ -1,0 +1,126 @@
+{
+  "_type": "export",
+  "__export_format": 4,
+  "__export_date": "2020-09-13T14:48:10.205Z",
+  "__export_source": "insomnia.desktop.app:v2020.3.3",
+  "resources": [
+    {
+      "_id": "req_97b65fd27950469494b08055b436946b",
+      "authentication": {},
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n\t\"name\": \"Bob\",\n\t\"email\": \"myemail\",\n\t\"password\": \"1s2e\",\n\t\"creationDate\": \"01.01.1970\"\n}"
+      },
+      "created": 1599831662389,
+      "description": "",
+      "headers": [
+        {
+          "id": "pair_9b88e79c4ea74f4c8a133a20bd1c87d1",
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "isPrivate": false,
+      "metaSortKey": -1599385433805,
+      "method": "POST",
+      "modified": 1599831726848,
+      "name": "Sign Up",
+      "parameters": [],
+      "parentId": "fld_b382799654ad40fe9517cc0898b14140",
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingFollowRedirects": "global",
+      "settingRebuildPath": true,
+      "settingSendCookies": true,
+      "settingStoreCookies": true,
+      "url": "http://localhost:8000/api/signup",
+      "_type": "request"
+    },
+    {
+      "_id": "fld_b382799654ad40fe9517cc0898b14140",
+      "created": 1599220349485,
+      "description": "",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1599220349486,
+      "modified": 1599220349485,
+      "name": "cinerama",
+      "parentId": "wrk_4d5698cc1edb41009b60ac4a73dd0648",
+      "_type": "request_group"
+    },
+    {
+      "_id": "wrk_4d5698cc1edb41009b60ac4a73dd0648",
+      "created": 1590861910159,
+      "description": "",
+      "modified": 1590861910159,
+      "name": "Insomnia",
+      "parentId": null,
+      "scope": null,
+      "_type": "workspace"
+    },
+    {
+      "_id": "req_c27d21407de8475289101fe549f3caa3",
+      "authentication": {},
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n\t\"email\": \"myemail\",\n\t\"password\": \"1s2e\"\n}"
+      },
+      "created": 1599385433755,
+      "description": "",
+      "headers": [
+        {
+          "id": "pair_3b5667c88eda4d2fa7f19c23711b729e",
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "isPrivate": false,
+      "metaSortKey": -1599385433755,
+      "method": "POST",
+      "modified": 1599471860092,
+      "name": "Log In",
+      "parameters": [],
+      "parentId": "fld_b382799654ad40fe9517cc0898b14140",
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingFollowRedirects": "global",
+      "settingRebuildPath": true,
+      "settingSendCookies": true,
+      "settingStoreCookies": true,
+      "url": "http://localhost:8000/api/login",
+      "_type": "request"
+    },
+    {
+      "_id": "env_7b91214d345a2436c654f317917e5a1100f08a05",
+      "color": null,
+      "created": 1590861910219,
+      "data": {},
+      "dataPropertyOrder": null,
+      "isPrivate": false,
+      "metaSortKey": 1590861910219,
+      "modified": 1590861910219,
+      "name": "Base Environment",
+      "parentId": "wrk_4d5698cc1edb41009b60ac4a73dd0648",
+      "_type": "environment"
+    },
+    {
+      "_id": "jar_7b91214d345a2436c654f317917e5a1100f08a05",
+      "cookies": [],
+      "created": 1590861910226,
+      "modified": 1590861910226,
+      "name": "Default Jar",
+      "parentId": "wrk_4d5698cc1edb41009b60ac4a73dd0648",
+      "_type": "cookie_jar"
+    },
+    {
+      "_id": "spc_328b798c0a494db6b4ce71bc79ff4c23",
+      "contentType": "yaml",
+      "contents": "",
+      "created": 1599220330573,
+      "fileName": "Insomnia",
+      "modified": 1599220330573,
+      "parentId": "wrk_4d5698cc1edb41009b60ac4a73dd0648",
+      "_type": "api_spec"
+    }
+  ]
+}

@@ -1,4 +1,4 @@
-package broker
+package rabbitmq
 
 import (
 	"errors"
@@ -10,11 +10,11 @@ import (
 )
 
 type RabbitMQ struct {
-	mux                  sync.RWMutex
-	config               Config
-	dialConfig           amqp.Config
-	connection           *amqp.Connection
-	ChannelNotifyTimeout time.Duration
+	mux               sync.RWMutex
+	config            Config
+	dialConfig        amqp.Config
+	connection        *amqp.Connection
+	ChanNotifyTimeout time.Duration
 }
 
 func (r *RabbitMQ) Connect() error {
@@ -32,17 +32,15 @@ func (r *RabbitMQ) Connect() error {
 	r.connection = conn
 
 	return nil
-
 }
 
 func (r *RabbitMQ) Channel() (*amqp.Channel, error) {
 	if r.connection == nil {
-		fmt.Println("establish connection first with rabbitmq")
+		fmt.Println("establish rabbitmq connection first")
 
 		if err := r.Connect(); err != nil {
 			return nil, errors.New("cannot connect to RabbitMQ")
 		}
-
 	}
 
 	ch, err := r.connection.Channel()
@@ -52,6 +50,7 @@ func (r *RabbitMQ) Channel() (*amqp.Channel, error) {
 	}
 
 	return ch, nil
+
 }
 
 func (r *RabbitMQ) Shutdown() error {
