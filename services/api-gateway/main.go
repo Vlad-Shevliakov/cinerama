@@ -30,6 +30,6 @@ func main() {
 
 	r := router.NewRouter()
 	r.RegisterAllHandlers(rabbitMq)
-	r.Run()
+	r.Run(cfg.RESTPort)
 
 }

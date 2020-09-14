@@ -1,11 +1,14 @@
 package amqp
 
 import (
+	"encoding/json"
 	"errors"
 	"fmt"
+	"net/http"
 	"time"
 
 	"github.com/cinerama/services/api-gateway/entities"
+	"github.com/go-playground/validator"
 
 	"github.com/gin-gonic/gin"
 
@@ -29,12 +32,33 @@ func (c *Create) HandleLogin(cc *gin.Context) {
 
 	if err := cc.BindJSON(&x); err != nil {
 		fmt.Println(err)
+
+		cc.String(http.StatusBadRequest, "wrong json")
+		return
 	}
 
-	fmt.Println(x)
+	validate := validator.New()
+
+	err := validate.Struct(x)
+
+	if err != nil {
+		cc.String(http.StatusBadRequest, err.Error())
+		return
+	}
+
+	c.publish(x)
+
+	mockResp := struct {
+		Token string `json:"token"`
+	}{
+		Token: "wdfwrfreferferf",
+	}
+
+	cc.JSON(http.StatusOK, mockResp)
+
 }
 
-func (c *Create) publish(message string) error {
+func (c *Create) publish(message entities.LogInRequest) error {
 
 	ch, err := c.rabbitmq.Channel()
 	if err != nil {
@@ -43,20 +67,22 @@ func (c *Create) publish(message string) error {
 
 	defer ch.Close()
 
+	b, err := json.Marshal(message)
+
 	if err := ch.Confirm(false); err != nil {
 		return errors.New("failed to enable confirmation mode")
 	}
 
 	err = ch.Publish(
-		"user",
-		"create",
-		true,
+		"",      // exchange
+		"login", // routing key
+		false,
 		false,
 		amqp.Publishing{
-			DeliveryMode: amqp.Persistent,
-			MessageId:    "A-UNIQUE-ID",
-			ContentType:  "text/plain",
-			Body:         []byte(message),
+			// DeliveryMode: amqp.Persistent,
+			// MessageId:    "A-UNIQUE-ID",
+			ContentType: "text/plain",
+			Body:        []byte(b),
 		},
 	)
 

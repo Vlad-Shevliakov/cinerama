@@ -2,8 +2,10 @@ package main
 
 import (
 	"fmt"
-	"github.com/streadway/amqp"
 	"log"
+	"unsafe"
+
+	"github.com/streadway/amqp"
 )
 
 func main() {
@@ -23,27 +25,18 @@ func main() {
 
 	defer ch.Close()
 
-	q, err := ch.QueueDeclare(
-		"login", // name
-		false,   // durable
-		false,   // delete when unused
-		false,   // exclusive
-		false,   // no-wait
-		nil,     // arguments
-	)
-
 	if err != nil {
 		fmt.Println("Failed to declare a queue")
 	}
 
 	msgs, err := ch.Consume(
-		q.Name, // queue
-		"",     // consumer
-		true,   // auto-ack
-		false,  // exclusive
-		false,  // no-local
-		false,  // no-wait
-		nil,    // args
+		"login", // queue
+		"",      // consumer
+		true,    // auto-ack
+		false,   // exclusive
+		false,   // no-local
+		false,   // no-wait
+		nil,     // args
 	)
 
 	if err != nil {
@@ -54,10 +47,10 @@ func main() {
 
 	go func() {
 		for d := range msgs {
-			log.Printf("Received a message: %s", d.Body)
+			log.Printf("Received a message: %s; %d bytes", d.Body, unsafe.Sizeof(d.Body))
 		}
 	}()
 
-	log.Printf(" [*] Waiting for messages. To exit press CTRL+C")
+	log.Printf("Waiting for messages.")
 	<-mqc
 }

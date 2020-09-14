@@ -46,46 +46,44 @@ func (a *AMQP) Setup() error {
 }
 
 func (a *AMQP) declareCreate(ch *amqp.Channel) error {
-	err := ch.ExchangeDeclare(
-		a.config.Create.ExchangeName,
-		a.config.Create.ExchangeType,
-		true,
-		false,
-		false,
-		false,
-		nil,
-	)
+	// err := ch.ExchangeDeclare(
+	// 	a.config.Create.ExchangeName,
+	// 	a.config.Create.ExchangeType,
+	// 	true,
+	// 	false,
+	// 	false,
+	// 	false,
+	// 	nil,
+	// )
 
-	if err != nil {
-		return errors.New("failed to declare exchange")
-	}
+	// if err != nil {
+	// 	return errors.New("failed to declare exchange")
+	// }
 
-	_, err = ch.QueueDeclare(
+	_, err := ch.QueueDeclare(
 		a.config.Create.QueueName,
-		true,
-		false,
-		false,
-		false,
-		amqp.Table{
-			"x-queue-mode": "lazy",
-		},
+		false, // durable
+		false, // delete when unused
+		false, // exclusive
+		false, // no-wait
+		nil,   // arguments
 	)
 
 	if err != nil {
 		return errors.New("failed to declare queue")
 	}
 
-	err = ch.QueueBind(
-		a.config.Create.QueueName,
-		a.config.Create.RoutingKey,
-		a.config.Create.ExchangeName,
-		false,
-		nil,
-	)
+	// err = ch.QueueBind(
+	// 	a.config.Create.QueueName,
+	// 	a.config.Create.RoutingKey,
+	// 	a.config.Create.ExchangeName,
+	// 	false,
+	// 	nil,
+	// )
 
-	if err != nil {
-		return errors.New("failed to bind queue")
-	}
+	// if err != nil {
+	// 	return errors.New("failed to bind queue")
+	// }
 
 	return nil
 }

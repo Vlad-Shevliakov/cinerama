@@ -26,6 +26,7 @@ func New() Config {
 
 	gatewayAddress, _ := os.LookupEnv("API_GATEWAY_PORT")
 	rabbitmqPort, _ := os.LookupEnv("RABBITQM_PORT")
+	// ginMode, _ := os.LookupEnv("GIN_MODE")
 
 	cfg := Config{
 		RESTPort: gatewayAddress,
@@ -44,7 +45,7 @@ func New() Config {
 	cfg.AMQP.Create.ExchangeName = "user"
 	cfg.AMQP.Create.ExchangeType = "direct"
 	cfg.AMQP.Create.RoutingKey = "create"
-	cfg.AMQP.Create.RoutingKey = "user_create"
+	cfg.AMQP.Create.QueueName = "login"
 
 	return cfg
 }
