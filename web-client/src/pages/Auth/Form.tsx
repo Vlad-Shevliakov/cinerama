@@ -1,5 +1,6 @@
 import React from 'react'
 import { Formik, Form as FormikForm } from 'formik'
+import { useDispatch } from 'react-redux'
 import { makeStyles } from '@material-ui/core'
 import { red } from '@material-ui/core/colors'
 import Button from '@material-ui/core/Button'
@@ -10,7 +11,7 @@ import {
   LoginValuesTypes,
   SignUpValuesTypes
 } from '../../services/validations'
-import { signUp } from '../../api/auth'
+import { logIn, signUp } from '../../redux/actions/user/user'
 
 interface FormProps {
   isLogin: boolean
@@ -39,23 +40,16 @@ const useStyles = makeStyles(() => ({
 
 const Form: React.FC<FormProps> = ({ isLogin }) => {
   const classes = useStyles()
-
-  const tempHelloRequest = async (
-    values: LoginValuesTypes | SignUpValuesTypes
-  ) => {
-    try {
-      const res = await signUp(values)
-
-      console.log(res)
-    } catch (error) {
-      console.dir(error)
-    }
-  }
+  const dispatch = useDispatch()
 
   const handleSubmit = (values: LoginValuesTypes | SignUpValuesTypes): void => {
     console.log('submit', values)
 
-    tempHelloRequest(values)
+    if (isLogin) {
+      dispatch(logIn(values))
+    } else {
+      dispatch(signUp(values))
+    }
   }
 
   const signUpInitialValues: SignUpValuesTypes = {

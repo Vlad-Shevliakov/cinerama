@@ -51,7 +51,7 @@ func (c *Create) HandleLogin(cc *gin.Context) {
 	mockResp := struct {
 		Token string `json:"token"`
 	}{
-		Token: "wdfwrfreferferf",
+		Token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiTWFyayBXaWxsaWFtc29uIiwiZW1haWwiOiJleGFtcGxlQGdtYWlsLmNvbSIsImpvaW5lZCI6IjEwLjA5LjIwMjAifQ.2obpe107J8f00W_MsLAsqKuMwjFV4es-KziWz9zvp2A",
 	}
 
 	cc.JSON(http.StatusOK, mockResp)

@@ -66,11 +66,17 @@ const Home: React.FC<HomeProps> = () => {
           <div className={classes.tagBox}>
             <MovieTag status={2} />
           </div>
-          <Typography className={clsx(classes.subInfo, classes.genre)} component="p">
+          <Typography
+            className={clsx(classes.subInfo, classes.genre)}
+            component="p"
+          >
             Genre:&nbsp;
             <Typography component="span">Fantasy, Action</Typography>
           </Typography>
-          <Typography className={clsx(classes.subInfo, classes.year)} component="p">
+          <Typography
+            className={clsx(classes.subInfo, classes.year)}
+            component="p"
+          >
             Year:&nbsp;
             <Typography component="span">2013</Typography>
           </Typography>
