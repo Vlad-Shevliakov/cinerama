@@ -9,12 +9,13 @@ interface CreditProps {
 
 const useStyles = makeStyles(() => ({
   root: {
-    display: 'inline-block',
+    // display: 'inline-block',
     width: '100%',
     maxWidth: 334,
-    margin: 40,
+    margin: '0 auto',
     padding: '15px 17px',
     borderRadius: 12,
+    backgroundColor: '#fff',
     boxShadow: '0 9px 17px rgba(0,0,0,0.2)'
   },
   title: {

@@ -21,10 +21,12 @@ const useStyles = makeStyles(() => ({
     position: 'relative',
     width: '100%',
     maxWidth: 334,
-    margin: '40px 0 0 40px',
+    margin: '0 auto 40px auto',
     padding: '15px 17px 20px 15px',
+    // marginBottom: 40,
     borderRadius: 12,
-    boxShadow: '0 9px 17px rgba(0,0,0,0.2)'
+    boxShadow: '0 9px 17px rgba(0,0,0,0.2)',
+    backgroundColor: '#fff'
   },
   avatar: {
     width: 200,
@@ -72,9 +74,10 @@ const useStyles = makeStyles(() => ({
   },
   exitButton: {
     top: 10,
-    right: 10,
+    left: 10,
+    color: red[600],
     position: 'absolute',
-    color: red[600]
+    transform: 'rotate(180deg)'
   }
 }))
 
