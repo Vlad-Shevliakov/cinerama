@@ -2,6 +2,8 @@ import React from 'react'
 import { makeStyles } from '@material-ui/core'
 import Box from '@material-ui/core/Box'
 import Typography from '@material-ui/core/Typography'
+import { CircularProgressbar, buildStyles } from 'react-circular-progressbar'
+import 'react-circular-progressbar/dist/styles.css'
 
 interface CollectionItemProps {
   id: string
@@ -77,10 +79,16 @@ const useStyles = makeStyles(() => ({
   title: {
     fontSize: 17,
     fontWeight: 500,
-    padding: '15px 0 7px 0'
+    padding: '15px 0 7px 0',
+    width: '100%',
+    maxWidth: 233,
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis'
   },
   category: {
     fontSize: 14,
+
     color: '#808080'
   }
 }))
@@ -92,6 +100,9 @@ const CollectionItem: React.FC<CollectionItemProps> = ({
   category
 }) => {
   const classes = useStyles({ image })
+
+  // 5 : 15 * 100 ~ 33 (%)
+  const percentage = expireIn < 10 ? expireIn * 10 : expireIn
 
   return (
     <div className={classes.root}>
@@ -107,6 +118,24 @@ const CollectionItem: React.FC<CollectionItemProps> = ({
       <div className={classes.cover}>
         <div className={classes.triangle} />
       </div>
+      <Box
+        width={60}
+        display="flex"
+        alignItems="center"
+        marginLeft="auto"
+        zIndex="50"
+      >
+        <CircularProgressbar
+          value={percentage}
+          text={`${percentage}%`}
+          circleRatio={0.75}
+          styles={buildStyles({
+            rotation: 1 / 2 + 1 / 8,
+            strokeLinecap: 'butt',
+            trailColor: '#eee'
+          })}
+        />
+      </Box>
     </div>
   )
 }
