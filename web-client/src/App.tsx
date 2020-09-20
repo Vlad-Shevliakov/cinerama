@@ -6,6 +6,7 @@ import FallbackLoader from './components/FallbackLoader'
 const Home = lazy(() => import('./pages/Home'))
 const Auth = lazy(() => import('./pages/Auth'))
 const Panel = lazy(() => import('./pages/Panel'))
+const Movie = lazy(() => import('./pages/Movie'))
 
 interface AppInterface {}
 
@@ -16,6 +17,7 @@ const App: React.FC<AppInterface> = () => {
         <Route exact path={routes.root} component={Home} />
         <Route exact path={routes.auth} component={Auth} />
         <Route exact path={routes.panel} component={Panel} />
+        <Route exact path={routes.movie} component={Movie} />
       </Switch>
     </Suspense>
   )

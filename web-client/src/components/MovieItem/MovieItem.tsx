@@ -131,7 +131,7 @@ const MovieItem: React.FC<MovieItemProps> = ({
         </div>
       </div>
       <div className={classes.overlay}>
-        <Link to={id}>
+        <Link to={`/movie/${id}`}>
           <div className={classes.more}>
             <Typography component="span">more</Typography>
             <ArrowRightIcon />

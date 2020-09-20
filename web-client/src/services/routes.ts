@@ -7,7 +7,8 @@ const routes: RoutesMap = {
   auth: '/auth',
   events: '/events',
   premieres: '/premieres',
-  panel: '/panel'
+  panel: '/panel',
+  movie: '/movie/:id'
 }
 
 export default routes
