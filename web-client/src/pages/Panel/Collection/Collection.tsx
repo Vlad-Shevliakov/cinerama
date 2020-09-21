@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { makeStyles } from '@material-ui/core'
 import { red } from '@material-ui/core/colors'
 import Typography from '@material-ui/core/Typography'
@@ -6,6 +6,8 @@ import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import Box from '@material-ui/core/Box'
 import CollectionItem from './CollectionItem/CollectionItem'
+import TabPanel from '../../../shared/TabPanel'
+import TabContainer from '../../../shared/TabContainer'
 
 import { collectionByUserID } from './temp_list'
 
@@ -35,26 +37,59 @@ const useStyles = makeStyles(() => ({
 }))
 
 const Collection: React.FC<CollectionProps> = () => {
+  const [activeTab, setActiveTab] = useState<number>(0)
   const classes = useStyles()
+
+  const collectionTabs: string[] = ['Active', 'History']
+
+  const handleTabClick = (tabIndex: number): void => {
+    setActiveTab(tabIndex)
+  }
 
   return (
     <section className={classes.root}>
       <Typography component="h3">My Collection</Typography>
-      <Box>
-        <List component="ul" className={classes.list}>
-          {collectionByUserID.map((item) => (
-            <ListItem key={item.id}>
-              <CollectionItem
-                id={item.id}
-                title={item.title}
-                image={item.image}
-                expireIn={item.expireIn}
-                category={item.category}
-              />
-            </ListItem>
-          ))}
-        </List>
-      </Box>
+
+      <TabPanel
+        tabs={collectionTabs}
+        value={activeTab}
+        onTabClick={handleTabClick}
+      />
+      <TabContainer value={activeTab} index={0}>
+        <Box>
+          <List component="ul" className={classes.list}>
+            {collectionByUserID.map((item) => (
+              <ListItem key={item.id}>
+                <CollectionItem
+                  id={item.id}
+                  title={item.title}
+                  image={item.image}
+                  expireIn={item.expireIn}
+                  category={item.category}
+                />
+              </ListItem>
+            ))}
+          </List>
+        </Box>
+      </TabContainer>
+      <TabContainer value={activeTab} index={1}>
+        <Box>
+          <List component="ul" className={classes.list}>
+            {collectionByUserID.map((item) => (
+              <ListItem key={item.id}>
+                <CollectionItem
+                  isActive={false}
+                  id={item.id}
+                  title={item.title}
+                  image={item.image}
+                  expireIn={item.expireIn}
+                  category={item.category}
+                />
+              </ListItem>
+            ))}
+          </List>
+        </Box>
+      </TabContainer>
     </section>
   )
 }

@@ -74,6 +74,8 @@ const useStyles = makeStyles(() => ({
     width: 220,
     height: '100%',
     marginRight: 15,
+    backgroundColor: (props: CollectionItemStyles) =>
+      props.isActive ? '#fff' : '#e7e7e7',
     backgroundImage: (props: CollectionItemStyles) => `url(${props.image})`,
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',
