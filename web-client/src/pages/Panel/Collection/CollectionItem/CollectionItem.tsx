@@ -11,10 +11,12 @@ interface CollectionItemProps {
   image: string
   expireIn: number
   category: string
+  isActive?: boolean
 }
 
 interface CollectionItemStyles {
   image: string
+  isActive: boolean
 }
 
 const useStyles = makeStyles(() => ({
@@ -25,7 +27,8 @@ const useStyles = makeStyles(() => ({
     width: '100%',
     maxWidth: 550,
     height: 110,
-    backgroundColor: '#fff',
+    backgroundColor: (props: CollectionItemStyles) =>
+      props.isActive ? '#fff' : '#e7e7e7',
     borderRadius: '15px 10px 10px 15px',
     boxShadow: '-3px 4px 6px rgba(0,0,0,0.2)'
   },
@@ -38,7 +41,8 @@ const useStyles = makeStyles(() => ({
     overflow: 'hidden'
   },
   triangle: {
-    backgroundColor: '#fff',
+    backgroundColor: (props: CollectionItemStyles) =>
+      props.isActive ? '#fff' : '#e7e7e7',
     position: 'relative',
     width: 70,
     height: 110,
@@ -74,7 +78,18 @@ const useStyles = makeStyles(() => ({
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',
     borderTopLeftRadius: 15,
-    borderBottomLeftRadius: 15
+    borderBottomLeftRadius: 15,
+    position: 'relative',
+    '&::before': {
+      position: 'absolute',
+      content: "''",
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      backgroundColor: (props: CollectionItemStyles) =>
+        props.isActive ? 'transparent' : 'rgba(200,200,200, .4)'
+    }
   },
   title: {
     fontSize: 17,
@@ -84,11 +99,12 @@ const useStyles = makeStyles(() => ({
     maxWidth: 233,
     whiteSpace: 'nowrap',
     overflow: 'hidden',
-    textOverflow: 'ellipsis'
+    textOverflow: 'ellipsis',
+    color: (props: CollectionItemStyles) =>
+      props.isActive ? '#333' : '#808080'
   },
   category: {
     fontSize: 14,
-
     color: '#808080'
   }
 }))
@@ -97,9 +113,10 @@ const CollectionItem: React.FC<CollectionItemProps> = ({
   title,
   image,
   expireIn,
-  category
+  category,
+  isActive = true
 }) => {
-  const classes = useStyles({ image })
+  const classes = useStyles({ image, isActive })
 
   // 5 : 15 * 100 ~ 33 (%)
   const percentage = expireIn < 10 ? expireIn * 10 : expireIn
@@ -118,24 +135,26 @@ const CollectionItem: React.FC<CollectionItemProps> = ({
       <div className={classes.cover}>
         <div className={classes.triangle} />
       </div>
-      <Box
-        width={60}
-        display="flex"
-        alignItems="center"
-        marginLeft="auto"
-        zIndex="50"
-      >
-        <CircularProgressbar
-          value={percentage}
-          text={`${percentage}%`}
-          circleRatio={0.75}
-          styles={buildStyles({
-            rotation: 1 / 2 + 1 / 8,
-            strokeLinecap: 'butt',
-            trailColor: '#eee'
-          })}
-        />
-      </Box>
+      {isActive && (
+        <Box
+          width={60}
+          display="flex"
+          alignItems="center"
+          marginLeft="auto"
+          zIndex="50"
+        >
+          <CircularProgressbar
+            value={percentage}
+            text={`${percentage}%`}
+            circleRatio={0.75}
+            styles={buildStyles({
+              rotation: 1 / 2 + 1 / 8,
+              strokeLinecap: 'butt',
+              trailColor: '#eee'
+            })}
+          />
+        </Box>
+      )}
     </div>
   )
 }

@@ -12,7 +12,7 @@ export const collectionByUserID: TCollectionItem[] = [
     title: 'My oredered movie #0',
     category: 'comedy',
     image:
-      'https://lh3.googleusercontent.com/proxy/lIH3o4AsERBXXbgYjGPUBwE-_MtGTdMXy2YMRzzFzjPVkcng5QriE321TF8HWJTQC_fs3sEv7OYCmhUD2oA4Ys0V6x8sBNLc1rTkl8SNv5l8g-9azLSFGR3lwUIJ9BCBFKqGAuE',
+      'https://res.cloudinary.com/dct4oinuz/image/upload/v1600709521/cine/movies/once_upon_a_time_in_hollywood_s5f2pw.jpg',
     expireIn: 7
   },
   {
@@ -28,7 +28,7 @@ export const collectionByUserID: TCollectionItem[] = [
     title: 'My oredered movie #2',
     category: 'comedy',
     image:
-      'https://lh3.googleusercontent.com/proxy/lIH3o4AsERBXXbgYjGPUBwE-_MtGTdMXy2YMRzzFzjPVkcng5QriE321TF8HWJTQC_fs3sEv7OYCmhUD2oA4Ys0V6x8sBNLc1rTkl8SNv5l8g-9azLSFGR3lwUIJ9BCBFKqGAuE',
+      'https://res.cloudinary.com/dct4oinuz/image/upload/v1600709521/cine/movies/once_upon_a_time_in_hollywood_s5f2pw.jpg',
     expireIn: 4
   },
   {
@@ -44,7 +44,7 @@ export const collectionByUserID: TCollectionItem[] = [
     title: 'My oredered movie #4',
     category: 'comedy',
     image:
-      'https://lh3.googleusercontent.com/proxy/lIH3o4AsERBXXbgYjGPUBwE-_MtGTdMXy2YMRzzFzjPVkcng5QriE321TF8HWJTQC_fs3sEv7OYCmhUD2oA4Ys0V6x8sBNLc1rTkl8SNv5l8g-9azLSFGR3lwUIJ9BCBFKqGAuE',
+      'https://res.cloudinary.com/dct4oinuz/image/upload/v1600709521/cine/movies/once_upon_a_time_in_hollywood_s5f2pw.jpg',
     expireIn: 0
   },
   {
@@ -60,7 +60,7 @@ export const collectionByUserID: TCollectionItem[] = [
     title: 'My oredered movie #6',
     category: 'comedy',
     image:
-      'https://lh3.googleusercontent.com/proxy/lIH3o4AsERBXXbgYjGPUBwE-_MtGTdMXy2YMRzzFzjPVkcng5QriE321TF8HWJTQC_fs3sEv7OYCmhUD2oA4Ys0V6x8sBNLc1rTkl8SNv5l8g-9azLSFGR3lwUIJ9BCBFKqGAuE',
+      'https://res.cloudinary.com/dct4oinuz/image/upload/v1600709521/cine/movies/once_upon_a_time_in_hollywood_s5f2pw.jpg',
     expireIn: 9
   },
   {
