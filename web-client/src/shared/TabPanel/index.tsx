@@ -17,28 +17,23 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1
   },
-  appBar: {
-    color: theme.palette.secondary.main,
-    boxShadow: 'none',
-    borderBottom: `3px solid orange`
-  },
   tabs: {
-    background: '#fff'
+    background: 'transparent'
   },
-  indicator: {
-    height: 0
+  activeIndicator: {
+    height: 2,
+    backgroundColor: '#f44336'
   },
   tab: {
-    backgroundColor: '#fafafa',
-    width: '256px',
+    backgroundColor: 'none',
+    textTransform: 'none',
+    width: 230,
     color: '#343434',
     fontSize: 16,
     fontWeight: 500
   },
   selected: {
-    backgroundColor: '#f44336',
-    fontSize: 16,
-    color: '#fff'
+    color: '#f44336'
   }
 }))
 
@@ -62,13 +57,14 @@ const TabPanel: React.FC<TabPanelProps> = ({ tabs, value, onTabClick }) => {
         value={value}
         onChange={handleChange}
         classes={{
-          indicator: classes.indicator,
+          indicator: classes.activeIndicator,
           root: classes.tabs
         }}
       >
         {tabs.map((tab: string, ind: number) => {
           return (
             <Tab
+              disableRipple
               key={tab}
               label={tab}
               classes={{

@@ -18,9 +18,14 @@ const useStyles = makeStyles(() => ({
     width: '100%',
     height: '100%'
   },
+  title: {
+    fontSize: 19,
+    fontWeight: 500,
+    marginBottom: 10,
+    paddingLeft: 46
+  },
   list: {
-    // height: 635,
-    height: 'calc(100vh - 65px)',
+    height: 'calc(100vh - 133px)',
     overflow: 'auto',
     paddingLeft: 30,
     '&::-webkit-scrollbar': {
@@ -40,7 +45,7 @@ const Collection: React.FC<CollectionProps> = () => {
   const [activeTab, setActiveTab] = useState<number>(0)
   const classes = useStyles()
 
-  const collectionTabs: string[] = ['Active', 'History']
+  const collectionTabs: string[] = ['Active now', 'History']
 
   const handleTabClick = (tabIndex: number): void => {
     setActiveTab(tabIndex)
@@ -48,13 +53,18 @@ const Collection: React.FC<CollectionProps> = () => {
 
   return (
     <section className={classes.root}>
-      <Typography component="h3">My Collection</Typography>
+      <Typography component="h3" className={classes.title}>
+        My Collection
+      </Typography>
 
-      <TabPanel
-        tabs={collectionTabs}
-        value={activeTab}
-        onTabClick={handleTabClick}
-      />
+      <Box paddingLeft="46px" marginBottom="20px">
+        <TabPanel
+          tabs={collectionTabs}
+          value={activeTab}
+          onTabClick={handleTabClick}
+        />
+      </Box>
+
       <TabContainer value={activeTab} index={0}>
         <Box>
           <List component="ul" className={classes.list}>
