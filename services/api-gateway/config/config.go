@@ -42,10 +42,10 @@ func New() Config {
 		},
 	}
 
-	cfg.AMQP.Create.ExchangeName = "user"
-	cfg.AMQP.Create.ExchangeType = "direct"
-	cfg.AMQP.Create.RoutingKey = "create"
-	cfg.AMQP.Create.QueueName = "login"
+	cfg.AMQP.Auth.ExchangeName = "user"
+	cfg.AMQP.Auth.ExchangeType = "direct"
+	cfg.AMQP.Auth.RoutingKey = "create"
+	cfg.AMQP.Auth.QueueName = "login"
 
 	return cfg
 }

@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"log"
-	"unsafe"
 
 	"github.com/streadway/amqp"
 )
@@ -47,7 +46,7 @@ func main() {
 
 	go func() {
 		for d := range msgs {
-			log.Printf("Received a message: %s; %d bytes", d.Body, unsafe.Sizeof(d.Body))
+			log.Printf("Received a message: %s", d.Body)
 		}
 	}()
 

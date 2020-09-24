@@ -1,6 +1,7 @@
 package rabbitmq
 
 import (
+	"encoding/json"
 	"errors"
 	"fmt"
 	"sync"
@@ -51,6 +52,59 @@ func (r *RabbitMQ) Channel() (*amqp.Channel, error) {
 
 	return ch, nil
 
+}
+
+func (r *RabbitMQ) Publish(
+	exchange string,
+	routingKey string,
+	mandatory bool,
+	immediate bool,
+	message interface{},
+) error {
+
+	ch, err := r.Channel()
+	if err != nil {
+		return errors.New("failed to open channel")
+	}
+
+	defer ch.Close()
+
+	b, err := json.Marshal(message)
+
+	if err := ch.Confirm(false); err != nil {
+		return errors.New("failed to enable confirmation mode")
+	}
+
+	err = ch.Publish(
+		exchange,
+		routingKey,
+		mandatory,
+		immediate,
+		amqp.Publishing{
+			// DeliveryMode: amqp.Persistent,
+			// MessageId:    "A-UNIQUE-ID",
+			ContentType: "text/plain",
+			Body:        []byte(b),
+		},
+	)
+
+	if err != nil {
+		return errors.New("failed to publish event")
+	}
+
+	select {
+	case ntf := <-ch.NotifyPublish(make(chan amqp.Confirmation, 1)):
+		if !ntf.Ack {
+			return errors.New("failed deliver(publish) event to queue")
+		}
+	case <-ch.NotifyReturn(make(chan amqp.Return)):
+		return errors.New("failed deliver(return) event to queue")
+
+	case <-time.After(r.ChanNotifyTimeout):
+		fmt.Println("event delivery time out")
+	}
+
+	return nil
 }
 
 func (r *RabbitMQ) Shutdown() error {

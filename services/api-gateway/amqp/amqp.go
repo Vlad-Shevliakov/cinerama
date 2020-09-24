@@ -8,7 +8,7 @@ import (
 )
 
 type AMQPConfig struct {
-	Create struct {
+	Auth struct {
 		ExchangeName string
 		ExchangeType string
 		RoutingKey   string
@@ -37,7 +37,7 @@ func (a *AMQP) Setup() error {
 
 	defer ch.Close()
 
-	if err := a.declareCreate(ch); err != nil {
+	if err := a.declareAuthService(ch); err != nil {
 		return err
 	}
 
@@ -45,7 +45,7 @@ func (a *AMQP) Setup() error {
 
 }
 
-func (a *AMQP) declareCreate(ch *amqp.Channel) error {
+func (a *AMQP) declareAuthService(ch *amqp.Channel) error {
 	// err := ch.ExchangeDeclare(
 	// 	a.config.Create.ExchangeName,
 	// 	a.config.Create.ExchangeType,
@@ -61,7 +61,7 @@ func (a *AMQP) declareCreate(ch *amqp.Channel) error {
 	// }
 
 	_, err := ch.QueueDeclare(
-		a.config.Create.QueueName,
+		a.config.Auth.QueueName,
 		false, // durable
 		false, // delete when unused
 		false, // exclusive
